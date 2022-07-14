@@ -7,3 +7,7 @@ loadprofile:
   pathone: "src/test/resources/test.csv"
   pathtwo: "src/test/resources/test.csv"
 
+
+awattar:
+  url: https://api.awattar.at/v1/marketdata
+

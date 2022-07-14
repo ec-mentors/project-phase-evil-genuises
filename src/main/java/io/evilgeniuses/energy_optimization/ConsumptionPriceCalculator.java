@@ -19,25 +19,15 @@ public class ConsumptionPriceCalculator {
         this.consumptionCalculator = consumptionCalculator;
     }
 
-    public double getMonthlyPrice(int month) {
-        var consumptionPerMonth = consumptionCalculator.getConsumptionPerMonthCSVOne(month);
+    public double getMonthlyPrice(int month, int path) {
+        var consumptionPerMonth = consumptionCalculator.getConsumptionPerMonth(month, path);
         return Math.round((consumptionPerMonth * fixedPrice) * 100) / 100.0;
     }
 
-    public List<Double> getPriceForEveryMonthDaDbCategory() {
+    public List<Double> getPriceForEveryMonth(int path) {
         List<Double> monthlyCosts = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-
-            monthlyCosts.add(getMonthlyPrice(i));
-        }
-        return monthlyCosts;
-    }
-
-    public List<Double> getPriceForEveryMonthDdDeCategory() {
-        List<Double> monthlyCosts = new ArrayList<>();
-        for (int i = 1; i <= 12; i++) {
-
-            monthlyCosts.add(getMonthlyPrice(i));
+            monthlyCosts.add(getMonthlyPrice(i, path));
         }
         return monthlyCosts;
     }

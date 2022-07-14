@@ -12,14 +12,14 @@ ConsumptionCalculator consumptionCalculator;
 
     @Test
     void getConsumptionPerMonthCSVOneJanuary() {
-        var result = consumptionCalculator.getConsumptionPerMonthCSVOne(1);
+        var result = consumptionCalculator.getConsumptionPerMonth(1,1);
         assertEquals(1.35, result, 0.0000001);
     }
 
 
     @Test
     void getConsumptionPerMonthCSVTwoDecember() {
-        var result = consumptionCalculator.getConsumptionPerMonthCSVTwo(12);
+        var result = consumptionCalculator.getConsumptionPerMonth(12,2);
         assertEquals(1.35, result, 0.0000001);
     }
 

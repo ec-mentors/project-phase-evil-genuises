@@ -13,21 +13,19 @@ class ConsumptionPriceCalculatorTest {
 
     @Test
     void getMonthlyPrice() {
-        var result = consumptionPriceCalculator.getMonthlyPrice(1);
+        var result = consumptionPriceCalculator.getMonthlyPrice(1,1);
         assertEquals(0.37, result, 0.0000001);
     }
 
     @Test
     void getPriceForEveryMonthDaDbCategory() {
-        var result = consumptionPriceCalculator.getPriceForEveryMonthDaDbCategory();
-        System.out.println(result);
+        var result = consumptionPriceCalculator.getPriceForEveryMonth(1);
         assertEquals(12, result.size());
 
     }
 
     @Test
     void getPriceForEveryMonthDdDeCategory() {
-        var result = consumptionPriceCalculator.getPriceForEveryMonthDdDeCategory();
-        System.out.println(result);
+        var result = consumptionPriceCalculator.getPriceForEveryMonth(2);
         assertEquals(12, result.size());}
 }

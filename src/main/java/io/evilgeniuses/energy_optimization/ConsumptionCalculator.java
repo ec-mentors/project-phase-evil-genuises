@@ -18,26 +18,27 @@ public class ConsumptionCalculator {
         this.pathTwo = pathTwo;
     }
 
-    public double getConsumptionPerMonthCSVOne(int numberOfMonth) {
-        var data = csvFileParser.parse(pathOne);
 
-        var sumOfMonth = data.stream()
-                .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
-                .map(LoadProfilePointWithDateTime::getConsumption)
-                .reduce(0.0, Double::sum);
-        return Math.round(sumOfMonth * 100) / 100.0;
+    // Actually not a good solution - the path argument decide which path will be used ( 1 = Da+Db 2 = Dd+De)
+    public double getConsumptionPerMonth(int numberOfMonth, int path) {
+        if (path == 1) {
+            var data = csvFileParser.parse(pathOne);
+            var sumOfMonth = data.stream()
+                    .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
+                    .map(LoadProfilePointWithDateTime::getConsumption)
+                    .reduce(0.0, Double::sum);
+            return Math.round(sumOfMonth * 100) / 100.0;
+        }
+        if (path == 2) {
+            var data = csvFileParser.parse(pathTwo);
 
-
-    }
-
-    public double getConsumptionPerMonthCSVTwo(int numberOfMonth) {
-        var data = csvFileParser.parse(pathTwo);
-
-        var sumOfMonth = data.stream()
-                .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
-                .map(LoadProfilePointWithDateTime::getConsumption)
-                .reduce(0.0, Double::sum);
-        return Math.round(sumOfMonth * 100) / 100.0;
+            var sumOfMonth = data.stream()
+                    .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
+                    .map(LoadProfilePointWithDateTime::getConsumption)
+                    .reduce(0.0, Double::sum);
+            return Math.round(sumOfMonth * 100) / 100.0;
+        }
+        return 0.0;
     }
 }
 
