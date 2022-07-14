@@ -14,7 +14,7 @@ class ConsumptionPriceCalculatorTest {
     @Test
     void getMonthlyPrice() {
         var result = consumptionPriceCalculator.getMonthlyPrice(1);
-        assertEquals(0.02, result, 0.0000001);
+        assertEquals(0.37, result, 0.0000001);
     }
 
     @Test
