@@ -29,7 +29,6 @@ public class ConsumptionCalculator {
 
 
     }
-
     public double getConsumptionPerMonthCSVTwo(int numberOfMonth) {
         var data = csvFileParser.parse(pathTwo);
 
