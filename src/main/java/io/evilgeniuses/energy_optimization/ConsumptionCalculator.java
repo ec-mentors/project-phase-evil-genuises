@@ -21,20 +21,23 @@ public class ConsumptionCalculator {
     public double getConsumptionPerMonthCSVOne(int numberOfMonth) {
         var data = csvFileParser.parse(pathOne);
 
-        return data.stream()
+        var sumOfMonth = data.stream()
                 .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
                 .map(LoadProfilePointWithDateTime::getConsumption)
                 .reduce(0.0, Double::sum);
+        return Math.round(sumOfMonth * 100) / 100.0;
+
 
     }
 
     public double getConsumptionPerMonthCSVTwo(int numberOfMonth) {
         var data = csvFileParser.parse(pathTwo);
 
-        return data.stream()
+        var sumOfMonth = data.stream()
                 .filter(v -> v.getEndTimeStamp().monthOfYear().get() == numberOfMonth)
                 .map(LoadProfilePointWithDateTime::getConsumption)
                 .reduce(0.0, Double::sum);
+        return Math.round(sumOfMonth * 100) / 100.0;
     }
 }
 

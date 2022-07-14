@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/hello_world
+
+loadprofile:
+  pathone: "src/test/resources/test.csv"
+  pathtwo: "src/test/resources/test.csv"
+

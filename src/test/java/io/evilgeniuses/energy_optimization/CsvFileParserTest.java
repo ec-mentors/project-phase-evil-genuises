@@ -16,8 +16,8 @@ class CsvFileParserTest {
 
     @Test
     void parse() {
-        var list = csvFileParser.parse("src/main/resources/test.csv");
-        assertEquals(3, list.size());
+        var list = csvFileParser.parse("src/test/resources/test.csv");
+        assertEquals(12, list.size());
     }
     @Test
     void wrongPathWasGiven(){
