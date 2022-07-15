@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/")
-public class HelloWorldEndpoint {
+//@RestController
+//@RequestMapping("/")
+//public class HelloWorldEndpoint {
 
-    private final ItemRepository repository;
+//    private final ItemRepository repository;
 
-    public HelloWorldEndpoint(ItemRepository repository) {
-        this.repository = repository;
-    }
+//    public HelloWorldEndpoint(ItemRepository repository) {
+//        this.repository = repository;
+//    }
 
-    @GetMapping
-    String getText() {
-        var text = repository.findAll();
-        return text.stream().map(Item::getText).collect(Collectors.joining());
-    }
-}
+//    @GetMapping
+//    String getText() {
+//        var text = repository.findAll();
+//        return text.stream().map(Item::getText).collect(Collectors.joining());
+//    }
+//}

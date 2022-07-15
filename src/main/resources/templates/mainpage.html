@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+
+</head>
+
+
+<body>
+
+    <style>
+        .logo {
+            font-family: sans-serif;
+        }
+
+        .button {
+            background-color: rgb(255, 255, 255);
+        border-color: rgb(34, 34, 215);
+        border-style: solid;
+        border-width: 1px;
+        color: rgb(34, 34, 215);
+        height: 28px;
+        width: 80px;
+        border-radius: 2px;
+        cursor: pointer;
+        margin-right: 8px;
+        transition: 0.3s;
+        font-size: 18px;
+        margin-left: 8px;
+        }
+
+        .button:hover {
+            background-color: rgb(34, 34, 215);
+        color: white    ;
+        }
+
+        .button:active {
+            opacity: 0.5;
+        }
+
+
+    </style>
+
+    <h1 class="logo">Energy ⚡ Optimizer</h1>
+
+<form>
+    
+    <select name="input" id="2" th:value="${previous}">
+
+<option selected>---</option>
+        <option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+        <option value="13">Whole Year</option>
+<input class="button" type="submit" >
+</select>
+</form>
+
+
+
+<p th:text="${result}"></p>
+
+<p>Berechnet auf einer Basis von 27,6 Cent pro KWH. Alle Angaben ohne Gewähr.</p>
+
+
+
+</body>
+
+
+</html>
