@@ -32,4 +32,16 @@ public class ConsumptionPriceCalculator {
         return monthlyCosts;
     }
 
+    public List<MonthDataPoint> getAllMonthDataPointsForAYear(int path) {
+        List<String> monthNames = List.of("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        List<MonthDataPoint> output = new ArrayList<>();
+        for (int i = 1; i < 13; i++) {
+            output.add(new MonthDataPoint(monthNames.get(i - 1),
+                    consumptionCalculator.getConsumptionPerMonth(i, path),
+                    getMonthlyPrice(i, path)));
+        }
+
+        return output;
+    }
+
 }

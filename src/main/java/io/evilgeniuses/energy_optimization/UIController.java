@@ -20,7 +20,7 @@ public class UIController {
         this.price = price;
     }
 
-    @GetMapping
+    @GetMapping("/oldui")
     public String loadUI(Model model, @RequestParam int input) {
         if (input < 13) {
             model.addAttribute("result", String.valueOf(consumption.getConsumptionPerMonth(input, 1)) + " kWh / " + price.getMonthlyPrice(input, 1) + " €");
@@ -39,5 +39,14 @@ public class UIController {
         model.addAttribute("previous", input);
         //, @RequestParam int month
         return "mainpage";
+    }
+
+    @GetMapping
+    public String loadTableUI(Model model, @RequestParam int input) {
+        model.addAttribute("months", price.getAllMonthDataPointsForAYear(input));
+        model.addAttribute("previous", input);
+
+
+        return "mainpagetable";
     }
 }

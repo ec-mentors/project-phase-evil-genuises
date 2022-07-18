@@ -1,0 +1,33 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<form>
+
+<select name="input" id="2" th:value="${previous}">
+
+    <option selected>---</option>
+    <option value="1">CSV1-Da+Db</option>
+    <option value="2">CSV2-Dd+De</option>
+
+    <input class="button" type="submit" >
+</select>
+</form>
+    <table>
+        <tr>
+          <th>Month</th>
+          <th>Usage in kWh</th>
+          <th>Price in Euro</th>
+        </tr>
+        <tr th:each="month : ${months}">
+          <td th:text="${month.monthName}"></td>
+            <td th:text="${month.usage}"></td>
+            <td th:text="${month.cost}"></td>
+        </tr>
+    </table>
+</body>
+</html>
