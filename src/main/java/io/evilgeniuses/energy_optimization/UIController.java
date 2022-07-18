@@ -37,7 +37,7 @@ public class UIController {
             model.addAttribute("result", String.valueOf(wholeYearKWH + " kWh / "+ wholeYearPrice + " €"));
         }
         model.addAttribute("previous", input);
-        //, @RequestParam int month
+        //, @RequestParam int month .
         return "mainpage";
     }
 
