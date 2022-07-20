@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class CsvFileParser2 {
@@ -59,9 +63,39 @@ public class CsvFileParser2 {
                         ele.getConsumption(), 0.27600, "CSV2"))
                 .toList();
 
-        repository.saveAll(listFile1);
-        repository.saveAll(listFile2);
+        //repository.saveAll(listFile1);
+        //repository.saveAll(listFile2);
+
+        repository.saveAll(modifyTimestampFourToOne(listFile1, "CSV1"));
+        repository.saveAll(modifyTimestampFourToOne(listFile2, "CSV2"));
 
 
+
+    }
+
+    private List<EnergyDataPoint> modifyTimestampFourToOne(List<EnergyDataPoint> input, String source) {
+
+        List<DateTime> timestamps = new ArrayList<>();
+        List<EnergyDataPoint> output = new ArrayList<>();
+        List<EnergyDataPoint> inputs = new ArrayList<>(input);
+
+        for (int i = 1; i <= input.size(); i++) {
+            if (i % 4 == 0) {
+                timestamps.add(input.get(i-1).getEndTimeStamp());
+            }
+        }
+
+        for (DateTime timestamp : timestamps) {
+            double combinedUsage = 0;
+            for (int j = 0; j < 4; j++) {
+                combinedUsage += inputs.get(0).getConsumptionInKWH();
+                inputs.remove(0);
+            }
+            output.add(new EnergyDataPoint(timestamp, combinedUsage, 0.276, source));
+            combinedUsage = 0;
+        }
+
+
+        return output;
     }
 }

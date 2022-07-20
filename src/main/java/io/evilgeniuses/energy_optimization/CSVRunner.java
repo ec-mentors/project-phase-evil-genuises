@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CSVRunner {
-//
-//    @Bean
-//    ApplicationRunner runner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
-//        return args -> {
-//            if (repository.findAll().isEmpty()) {
-//                parser.parseAndSave();
-//            }
-//        };
-//    }
+
+    @Bean
+    ApplicationRunner runner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
+        return args -> {
+            if (repository.findAll().isEmpty()) {
+                parser.parseAndSave();
+            }
+        };
+    }
 }

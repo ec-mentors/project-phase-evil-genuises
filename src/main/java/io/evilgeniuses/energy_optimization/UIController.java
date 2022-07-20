@@ -17,6 +17,8 @@ public class UIController {
         this.price = price;
     }
 
+
+    //DEPRECATED DONT USE
     @GetMapping("/oldui")
     public String loadUI(Model model, @RequestParam int input) {
         if (input < 13) {
