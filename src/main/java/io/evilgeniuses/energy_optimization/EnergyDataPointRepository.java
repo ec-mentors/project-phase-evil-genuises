@@ -2,6 +2,10 @@ package io.evilgeniuses.energy_optimization;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ItemRepository extends MongoRepository<Item,String> {
+import java.util.List;
+
+public interface EnergyDataPointRepository extends MongoRepository<EnergyDataPoint,String> {
+
+    List<EnergyDataPoint> findBySource(String source);
 
 }

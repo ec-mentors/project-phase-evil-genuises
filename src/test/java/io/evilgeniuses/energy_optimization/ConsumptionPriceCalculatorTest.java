@@ -1,31 +1,24 @@
 package io.evilgeniuses.energy_optimization;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ConsumptionPriceCalculatorTest {
     @Autowired
     ConsumptionPriceCalculator consumptionPriceCalculator;
 
+    @MockBean
+    ConsumptionCalculator consumptionCalculator;
+
     @Test
     void getMonthlyPrice() {
-        var result = consumptionPriceCalculator.getMonthlyPrice(1,1);
-        assertEquals(0.37, result, 0.0000001);
+        consumptionPriceCalculator.getMonthlyPerFixedPrice(1, "csv1");
+        Mockito.when(consumptionCalculator.getConsumptionPerMonth(1, "csv1")).thenReturn(0.0);
+        Mockito.verify(consumptionCalculator).getConsumptionPerMonth(1, "csv1");
     }
-
-    @Test
-    void getPriceForEveryMonthDaDbCategory() {
-        var result = consumptionPriceCalculator.getPriceForEveryMonth(1);
-        assertEquals(12, result.size());
-
-    }
-
-    @Test
-    void getPriceForEveryMonthDdDeCategory() {
-        var result = consumptionPriceCalculator.getPriceForEveryMonth(2);
-        assertEquals(12, result.size());}
 }

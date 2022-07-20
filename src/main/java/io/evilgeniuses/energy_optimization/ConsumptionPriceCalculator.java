@@ -10,38 +10,39 @@ public class ConsumptionPriceCalculator {
 
     private final ConsumptionCalculator consumptionCalculator;
     private final double fixedPrice = 0.27600;
+    private final EnergyDataPointRepository repository;
 
     public double getFixedPrice() {
         return fixedPrice;
     }
 
-    public ConsumptionPriceCalculator(ConsumptionCalculator consumptionCalculator) {
+    public ConsumptionPriceCalculator(ConsumptionCalculator consumptionCalculator, EnergyDataPointRepository repository) {
         this.consumptionCalculator = consumptionCalculator;
+        this.repository = repository;
     }
 
-    public double getMonthlyPrice(int month, int path) {
-        var consumptionPerMonth = consumptionCalculator.getConsumptionPerMonth(month, path);
+    public double getMonthlyPerFixedPrice(int month, String source) {
+        var consumptionPerMonth = consumptionCalculator.getConsumptionPerMonth(month, source);
         return Math.round((consumptionPerMonth * fixedPrice) * 100) / 100.0;
     }
 
-    public List<Double> getPriceForEveryMonth(int path) {
+    public List<Double> getPriceForEveryMonth(String source) {
         List<Double> monthlyCosts = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            monthlyCosts.add(getMonthlyPrice(i, path));
+            monthlyCosts.add(getMonthlyPerFixedPrice(i, source));
         }
         return monthlyCosts;
     }
 
-    public List<MonthDataPoint> getAllMonthDataPointsForAYear(int path) {
+    public List<MonthDataPoint> getAllMonthDataPointsForAYear(String source) {
         List<String> monthNames = List.of("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
         List<MonthDataPoint> output = new ArrayList<>();
         for (int i = 1; i < 13; i++) {
             output.add(new MonthDataPoint(monthNames.get(i - 1),
-                    consumptionCalculator.getConsumptionPerMonth(i, path),
-                    getMonthlyPrice(i, path)));
+                    consumptionCalculator.getConsumptionPerMonth(i, source),
+                    getMonthlyPerFixedPrice(i, source)));
         }
 
         return output;
     }
-
 }

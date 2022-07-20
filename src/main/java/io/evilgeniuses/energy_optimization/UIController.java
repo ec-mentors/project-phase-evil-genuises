@@ -3,10 +3,7 @@ package io.evilgeniuses.energy_optimization;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Controller
 public class UIController {
@@ -23,18 +20,20 @@ public class UIController {
     @GetMapping("/oldui")
     public String loadUI(Model model, @RequestParam int input) {
         if (input < 13) {
-            model.addAttribute("result", String.valueOf(consumption.getConsumptionPerMonth(input, 1)) + " kWh / " + price.getMonthlyPrice(input, 1) + " €");
+            model.addAttribute("result",
+                    String.valueOf(consumption.getConsumptionPerMonth(input, "CSV1")) + " kWh / " + price.getMonthlyPerFixedPrice(input,
+                            "CSV1") + " €");
         } else {
             double wholeYearKWH = 0;
             for (int i = 1; i < 13; i++) {
-                wholeYearKWH += consumption.getConsumptionPerMonth(i, 1);
+                wholeYearKWH += consumption.getConsumptionPerMonth(i, "CSV1");
             }
 
             double wholeYearPrice = 0;
-            for (double price : price.getPriceForEveryMonth(1)) {
+            for (double price : price.getPriceForEveryMonth("CSV1")) {
                 wholeYearPrice += price;
             }
-            model.addAttribute("result", String.valueOf(wholeYearKWH + " kWh / "+ wholeYearPrice + " €"));
+            model.addAttribute("result", String.valueOf(wholeYearKWH + " kWh / " + wholeYearPrice + " €"));
         }
         model.addAttribute("previous", input);
         //, @RequestParam int month .
@@ -42,7 +41,7 @@ public class UIController {
     }
 
     @GetMapping
-    public String loadTableUI(Model model, @RequestParam int input) {
+    public String loadTableUI(Model model, @RequestParam String input) {
         model.addAttribute("months", price.getAllMonthDataPointsForAYear(input));
         model.addAttribute("previous", input);
 
