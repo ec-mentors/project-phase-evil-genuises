@@ -1,10 +1,7 @@
 package io.evilgeniuses.energy_optimization;
 
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvDate;
 import com.opencsv.bean.CsvNumber;
-
-import java.util.Date;
 
 public class LoadProfilePoint {
 

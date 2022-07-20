@@ -8,9 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Service
 public class CsvFileParser2 {
@@ -62,9 +59,6 @@ public class CsvFileParser2 {
         var listFile2 = dataCsvFile2.stream().map(ele -> new EnergyDataPoint(new DateTime(ele.getEndTimeStamp()),
                         ele.getConsumption(), 0.27600, "CSV2"))
                 .toList();
-
-        //repository.saveAll(listFile1);
-        //repository.saveAll(listFile2);
 
         repository.saveAll(modifyTimestampFourToOne(listFile1, "CSV1"));
         repository.saveAll(modifyTimestampFourToOne(listFile2, "CSV2"));

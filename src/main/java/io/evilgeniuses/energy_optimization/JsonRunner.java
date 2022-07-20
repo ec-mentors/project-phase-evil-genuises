@@ -5,14 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CSVRunner {
+public class JsonRunner {
 
     @Bean
-    ApplicationRunner CsvRunner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
+    ApplicationRunner runner(JsonParser parser, VariableCostRepository repository) {
         return args -> {
             if (repository.findAll().isEmpty()) {
                 parser.parseAndSave();
             }
         };
     }
+
 }
