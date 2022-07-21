@@ -31,7 +31,5 @@ public class CsvFileParser {
                         ele.getMeasuringInterval(),
                         ele.getMeasurementUnit(), ele.getConsumption()))
                 .toList();
-
-
     }
 }

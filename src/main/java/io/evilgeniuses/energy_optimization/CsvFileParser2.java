@@ -2,6 +2,7 @@ package io.evilgeniuses.energy_optimization;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -14,16 +15,29 @@ public class CsvFileParser2 {
 
     private final EnergyDataPointRepository repository;
     private final VariablePriceFinder priceFinder;
+    private final String pathDaDb;
+    private final String pathDdDe;
+    private final String sourceOne;
+    private final String sourceTwo;
 
-    public CsvFileParser2(EnergyDataPointRepository repository, VariablePriceFinder priceFinder) {
+
+    public CsvFileParser2(EnergyDataPointRepository repository, VariablePriceFinder priceFinder,
+                          @Value("${loadprofile.pathone}")String pathDaDb,
+                          @Value("${loadprofile.pathtwo}")String pathDdDe,
+                          @Value("${loadprofile.sourceone}")String sourceOne,
+                          @Value("${loadprofile.sourcetwo}")String sourceTwo) {
         this.repository = repository;
         this.priceFinder = priceFinder;
+        this.pathDaDb = pathDaDb;
+        this.pathDdDe = pathDdDe;
+        this.sourceOne = sourceOne;
+        this.sourceTwo = sourceTwo;
     }
 
     void parseAndSave() {
         FileReader fileReaderFile1 = null;
         try {
-            fileReaderFile1 = new FileReader("src/main/resources/Da+Db_[1, 1].csv");
+            fileReaderFile1 = new FileReader(pathDaDb);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -37,13 +51,13 @@ public class CsvFileParser2 {
                 .parse();
 
         var listFile1 = dataCsvFile1.stream().map(ele -> new EnergyDataPoint(new DateTime(ele.getEndTimeStamp()),
-                        ele.getConsumption(), 0.27600, "CSV1"))
+                        ele.getConsumption(), 0.27600, sourceOne))
                 .toList();
 
 
         FileReader fileReaderFile2 = null;
         try {
-            fileReaderFile2 = new FileReader("src/main/resources/Dd+De_[1, 2].csv");
+            fileReaderFile2 = new FileReader(pathDdDe);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -59,11 +73,11 @@ public class CsvFileParser2 {
 
 
         var listFile2 = dataCsvFile2.stream().map(ele -> new EnergyDataPoint(new DateTime(ele.getEndTimeStamp()),
-                        ele.getConsumption(), 0.27600, "CSV2"))
+                        ele.getConsumption(), 0.27600, sourceTwo))
                 .toList();
 
-        repository.saveAll(modifyTimestampFourToOne(listFile1, "CSV1"));
-        repository.saveAll(modifyTimestampFourToOne(listFile2, "CSV2"));
+        repository.saveAll(modifyTimestampFourToOne(listFile1, sourceOne));
+        repository.saveAll(modifyTimestampFourToOne(listFile2, sourceTwo));
 
 
     }
