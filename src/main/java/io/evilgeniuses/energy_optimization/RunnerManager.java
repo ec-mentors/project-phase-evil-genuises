@@ -1,18 +1,22 @@
 package io.evilgeniuses.energy_optimization;
 
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class RunnerManager {
 
-    private final CsvFileParser2 parser;
-    private final EnergyDataPointRepository repository;
-
-    public RunnerManager(CsvFileParser2 parser, EnergyDataPointRepository repository) {
-        this.parser = parser;
-        this.repository = repository;
+    @Bean
+    ApplicationRunner runner(JsonParser parser, VariableCostRepository repository) {
+        return args -> {
+            if (repository.findAll().isEmpty()) {
+                parser.parseAndSave();
+            }
+        };
     }
-
-    ApplicationRunner jsonRunner() {
+    @Bean
+    ApplicationRunner CsvRunner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
         return args -> {
             if (repository.findAll().isEmpty()) {
                 parser.parseAndSave();
@@ -20,11 +24,4 @@ public class RunnerManager {
         };
     }
 
-    ApplicationRunner csvRunner() {
-        return args -> {
-            if (repository.findAll().isEmpty()) {
-                parser.parseAndSave();
-            }
-        };
-    }
 }
