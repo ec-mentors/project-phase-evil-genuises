@@ -16,7 +16,7 @@ class ConsumptionPriceCalculatorTest {
     ConsumptionCalculator consumptionCalculator;
 
     @Test
-    void getMonthlyPrice() {
+    void getMonthlyPerFixedPrice() {
         consumptionPriceCalculator.getMonthlyPerFixedPrice(1, "csv1");
         Mockito.when(consumptionCalculator.getConsumptionPerMonth(1, "csv1")).thenReturn(0.0);
         Mockito.verify(consumptionCalculator).getConsumptionPerMonth(1, "csv1");

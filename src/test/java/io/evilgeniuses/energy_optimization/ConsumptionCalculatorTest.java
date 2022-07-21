@@ -19,7 +19,7 @@ class ConsumptionCalculatorTest {
     EnergyDataPointRepository repository;
 
     @Test
-    void getConsumptionPerMonthCSVOneJanuary() {
+    void getConsumptionPerMonth() {
         String source = "csv1";
         consumptionCalculator.getConsumptionPerMonth(1, source);
         Mockito.when(repository.findBySource(source)).thenReturn(new ArrayList<>());

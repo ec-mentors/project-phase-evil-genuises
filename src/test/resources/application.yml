@@ -1,7 +1,7 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost/hello_world
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost/hello_world
 
 loadprofile:
   pathone: "src/test/resources/test.csv"
