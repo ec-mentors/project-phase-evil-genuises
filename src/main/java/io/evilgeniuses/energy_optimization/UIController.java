@@ -11,12 +11,14 @@ public class UIController {
     ConsumptionCalculator consumption;
     ConsumptionPriceCalculator price;
 
+    FrontendDataManager manager;
 
-    public UIController(ConsumptionCalculator consumption, ConsumptionPriceCalculator price) {
+
+    public UIController(ConsumptionCalculator consumption, ConsumptionPriceCalculator price, FrontendDataManager manager) {
         this.consumption = consumption;
         this.price = price;
+        this.manager = manager;
     }
-
 
     //DEPRECATED DONT USE
     @GetMapping("/oldui")
@@ -44,7 +46,7 @@ public class UIController {
 
     @GetMapping
     public String loadTableUI(Model model, @RequestParam String input) {
-        //model.addAttribute("months", price.getAllMonthDataPointsForAYear(input));
+        model.addAttribute("months", manager.getMonths(input));
         //create new method to get all the stuff
         model.addAttribute("previous", input);
 
