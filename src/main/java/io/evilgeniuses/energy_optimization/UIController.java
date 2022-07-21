@@ -44,7 +44,8 @@ public class UIController {
 
     @GetMapping
     public String loadTableUI(Model model, @RequestParam String input) {
-        model.addAttribute("months", price.getAllMonthDataPointsForAYear(input));
+        //model.addAttribute("months", price.getAllMonthDataPointsForAYear(input));
+        //create new method to get all the stuff
         model.addAttribute("previous", input);
 
 

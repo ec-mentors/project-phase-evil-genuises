@@ -13,9 +13,11 @@ import java.util.List;
 public class CsvFileParser2 {
 
     private final EnergyDataPointRepository repository;
+    private final VariablePriceFinder priceFinder;
 
-    public CsvFileParser2(EnergyDataPointRepository repository) {
+    public CsvFileParser2(EnergyDataPointRepository repository, VariablePriceFinder priceFinder) {
         this.repository = repository;
+        this.priceFinder = priceFinder;
     }
 
     void parseAndSave() {
@@ -85,7 +87,12 @@ public class CsvFileParser2 {
                 combinedUsage += inputs.get(0).getConsumptionInKWH();
                 inputs.remove(0);
             }
-            output.add(new EnergyDataPoint(timestamp, combinedUsage, 0.276, source));
+            output.add(
+                    new EnergyDataPoint(
+                            timestamp,
+                            combinedUsage,
+                            priceFinder.getPriceForTimestamp(timestamp.getMillis()),
+                            source));
             combinedUsage = 0;
         }
 
