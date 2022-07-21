@@ -11,10 +11,11 @@ public class RunnerManager {
     ApplicationRunner runner(JsonParser parser, VariableCostRepository repository) {
         return args -> {
             if (repository.findAll().isEmpty()) {
-                parser.parseAndSave();
+                parser.saveFromApi();
             }
         };
     }
+
     @Bean
     ApplicationRunner CsvRunner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
         return args -> {
@@ -23,5 +24,4 @@ public class RunnerManager {
             }
         };
     }
-
 }

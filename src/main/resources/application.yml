@@ -8,5 +8,7 @@ loadprofile:
   pathtwo: "src/main/resources/Dd+De_[1, 2].csv"
 
 awattar:
-  url: https://api.awattar.at/v1/marketdata
+  url_future: https://api.awattar.at/v1/marketdata
+  url_2019: https://api.awattar.at/v1/marketdata?start=1546297200000&end=1577833200000
+
 

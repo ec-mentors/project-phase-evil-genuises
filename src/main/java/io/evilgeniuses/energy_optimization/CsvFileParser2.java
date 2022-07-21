@@ -66,7 +66,6 @@ public class CsvFileParser2 {
         repository.saveAll(modifyTimestampFourToOne(listFile2, "CSV2"));
 
 
-
     }
 
     private List<EnergyDataPoint> modifyTimestampFourToOne(List<EnergyDataPoint> input, String source) {
@@ -77,7 +76,7 @@ public class CsvFileParser2 {
 
         for (int i = 1; i <= input.size(); i++) {
             if (i % 4 == 0) {
-                timestamps.add(input.get(i-1).getEndTimeStamp());
+                timestamps.add(input.get(i - 1).getEndTimeStamp());
             }
         }
 
@@ -95,8 +94,6 @@ public class CsvFileParser2 {
                             source));
             combinedUsage = 0;
         }
-
-
         return output;
     }
 }

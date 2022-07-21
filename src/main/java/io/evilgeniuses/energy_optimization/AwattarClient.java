@@ -8,14 +8,20 @@ import org.springframework.web.client.RestTemplate;
 public class AwattarClient {
 
     private final RestTemplate restTemplate;
-    private final String url;
+    private final String url2019;
+    private final String urlFuture;
 
-    public AwattarClient(RestTemplate restTemplate, @Value("${awattar.url}") String url) {
+    public AwattarClient(RestTemplate restTemplate, @Value("${awattar.url_2019}") String url2019,
+                         @Value("${awattar.url_future}") String urlFuture) {
         this.restTemplate = restTemplate;
-        this.url = url;
+        this.url2019 = url2019;
+        this.urlFuture = urlFuture;
     }
 
-    public MarketData get() {
-      return restTemplate.getForObject(url, MarketData.class);
+    public MarketData getDataFromYear2019() {
+        return restTemplate.getForObject(url2019, MarketData.class);
+    }
+    public MarketData getDataFromFuture() {
+        return restTemplate.getForObject(urlFuture, MarketData.class);
     }
 }

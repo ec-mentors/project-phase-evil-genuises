@@ -20,13 +20,13 @@ class AwattarClientTest {
     @MockBean
     RestTemplate restTemplate;
 
-    @Value("${awattar.url}")
+    @Value("${awattar.url_2019}")
     String url;
 
 
     @Test
     void get() {
-        awattarClient.get();
+        awattarClient.getDataFromYear2019();
         Mockito.verify(restTemplate).getForObject(url, MarketData.class);
     }
 }

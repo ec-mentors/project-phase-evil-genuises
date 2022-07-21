@@ -12,9 +12,11 @@ import java.util.List;
 public class JsonParser {
 
     private final VariableCostRepository repository;
+    private final AwattarClient client;
 
-    public JsonParser(VariableCostRepository repository) {
+    public JsonParser(VariableCostRepository repository, AwattarClient client) {
         this.repository = repository;
+        this.client = client;
     }
 
     public void parseAndSave() {
@@ -32,5 +34,17 @@ public class JsonParser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public void saveFromApi(){
+        var data = client.getDataFromYear2019();
+        var dataEntries = data.getData();
+        List<VariableCost> energyList = new ArrayList<>();
+
+        for (DataEntry entry : dataEntries) {
+            energyList.add(new VariableCost(entry.getStart_timestamp(),
+                    (Math.round(entry.getMarketprice() / 1000 * 10000) / 10000.0)));
+
+        }
+        repository.saveAll(energyList);
     }
 }
