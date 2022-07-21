@@ -6,7 +6,9 @@
 
 <body>
 
-<form>
+  <h1 class="centered">Energy Optimizer Alpha 2.0</h1>
+
+<form class="centered">
 
 <select name="input" id="2" th:value="${previous}">
 
@@ -14,10 +16,10 @@
     <option value="CSV1">CSV1-Da+Db</option>
     <option value="CSV2">CSV2-Dd+De</option>
 
-    <input class="button" type="submit" >
+    <input class="join-button" type="submit" >
 </select>
 </form>
-    <table>
+    <table class="centered-table">
         <tr>
           <th>Month</th>
           <th>Usage in kWh</th>
@@ -33,5 +35,81 @@
             <td th:text="${month.difference}"></td>
         </tr>
     </table>
+
+    <p class="centered">Fixed Price is calculated with 0.0276 Euro per kWh and Variable Price is calculated with Awattar API data.</p>
+  
 </body>
+
+<style>
+
+  .centered {
+    text-align: center;
+  }
+
+  table {
+    border-radius: 6px;
+  }
+
+  .centered-table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+table, th, td {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-spacing: 10px;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.join-button {
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(34, 34, 215);
+        border-style: solid;
+        border-width: 1px;
+        color: rgb(34, 34, 215);
+        height: 36px;
+        width: 84px;
+        border-radius: 2px;
+        cursor: pointer;
+        margin-left: 8px;
+        transition: 0.3s;
+        font-size: 18px;
+    }
+
+    .join-button:hover {
+        background-color: rgb(34, 34, 215);
+        color: white    ;
+    }
+
+    .join-button:active {
+        opacity: 0.5;
+    }
+
+
+</style>
+
+
+
 </html>
