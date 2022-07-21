@@ -12,5 +12,7 @@ public class EnergyOptimizationApplication {
     public static void main(String[] args) {
         SpringApplication.run(EnergyOptimizationApplication.class, args);
 
+
+
     }
 }
