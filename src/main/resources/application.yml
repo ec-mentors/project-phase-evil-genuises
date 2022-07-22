@@ -6,6 +6,8 @@ spring:
 loadprofile:
   pathone: "src/main/resources/Da+Db_[1, 1].csv"
   pathtwo: "src/main/resources/Dd+De_[1, 2].csv"
+  sourceone: "CSV1"
+  sourcetwo: "CSV2"
 
 awattar:
   url_future: https://api.awattar.at/v1/marketdata

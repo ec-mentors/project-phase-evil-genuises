@@ -1,12 +1,13 @@
-#spring:
-#  data:
-#    mongodb:
-#      uri: mongodb://localhost/hello_world
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/hello_world
 
 loadprofile:
   pathone: "src/test/resources/test.csv"
-  pathtwo: "src/test/resources/test.csv"
-
+  pathtwo: "src/test/resources/test2.csv"
+  sourceone: "CSV1Test"
+  sourcetwo: "CSV2Test"
 
 awattar:
   url_future: https://api.awattar.at/v1/marketdata
