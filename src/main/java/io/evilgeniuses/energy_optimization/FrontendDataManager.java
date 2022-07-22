@@ -15,7 +15,8 @@ public class FrontendDataManager {
         this.dataPointRepository = dataPointRepository;
     }
 
-    public List<MonthDataPoint> getMonths(String source) {
+    public List<MonthDataPointAsString> getMonths(String source) {
+        List<MonthDataPointAsString> outputStrings = new ArrayList<>();
         List<MonthDataPoint> output = new ArrayList<>();
         List<String> months = List.of(
                 "January",
@@ -78,12 +79,24 @@ public class FrontendDataManager {
                 Math.round((totalVariableCosts) * 100) / 100.0,
                 Math.round((totalDifference) * 100) / 100.0));
 
-        return output;
+
 
 
         //border-collapse: collapse;
 
-        
+        for (MonthDataPoint point : output) {
+            outputStrings.add(new MonthDataPointAsString(
+                    point.getMonthName(),
+                    String.valueOf(point.getUsage()) + " kWh",
+                    String.valueOf(point.getFixedCost()) + " €",
+                    String.valueOf(point.getVariableCost()) + " €",
+                    String.valueOf(point.getDifference()) + " €"
+            ));
+
+
+        }
+        return outputStrings;
+
     }
 
 }
