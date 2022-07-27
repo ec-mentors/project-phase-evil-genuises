@@ -1,8 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://evilgeniuses:evil@energydata.7k9fm.mongodb.net/?retryWrites=true&w=majority
-      database: energydata
+      uri: mongodb://localhost/energy_data
 
 loadprofile:
   pathone: "src/main/resources/Da+Db_[1, 1].csv"
