@@ -1,7 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost/energy_data
+      uri: mongodb+srv://evilgeniuses:evil@energydata.7k9fm.mongodb.net/?retryWrites=true&w=majority
+      database: energydata
 
 loadprofile:
   pathone: "src/main/resources/Da+Db_[1, 1].csv"
@@ -12,5 +13,9 @@ loadprofile:
 awattar:
   url_future: https://api.awattar.at/v1/marketdata
   url_2019: https://api.awattar.at/v1/marketdata?start=1546297200000&end=1577833200000
+
+server:
+  servlet:
+    context-path: /?input=CSV1
 
 
