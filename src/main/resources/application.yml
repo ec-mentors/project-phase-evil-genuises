@@ -14,8 +14,8 @@ awattar:
   url_future: https://api.awattar.at/v1/marketdata
   url_2019: https://api.awattar.at/v1/marketdata?start=1546297200000&end=1577833200000
 
-#server:
-#  servlet:
-#    context-path: /?input=CSV1
+server:
+  servlet:
+    context-path: /?input=CSV1
 
 
