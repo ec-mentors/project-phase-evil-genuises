@@ -40,10 +40,27 @@ public class ForecastManager {
         return futurePriceData;
     }
 
+    public List<EnergyDataPoint> getFutureData2(String source) {
+        var futurePrices = getFutureCosts();
+        List<EnergyDataPoint> futurePriceData = new ArrayList<>();
+
+        for (VariableCost vCost : futurePrices) {
+            EnergyDataPoint current = repository.findByEndTimeStamp(new DateTime(vCost.getEndTimeStamp()));
+            futurePriceData.add(new EnergyDataPoint(
+                    current.getEndTimeStamp(),
+                    current.getConsumptionInKWH(),
+                    vCost.getPricePerKWH(),
+                    source
+            ));
+        }
+
+        return futurePriceData;
+    }
 
 
 
-    private List<VariableCost> getFutureCosts(){
+
+     private List<VariableCost> getFutureCosts(){
         var data = client.getDataFromFuture();
         var dataEntries = data.getData();
         List<VariableCost> energyList = new ArrayList<>();
