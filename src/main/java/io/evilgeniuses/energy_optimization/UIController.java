@@ -8,25 +8,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UIController {
 
-    ConsumptionCalculator consumption;
-    ConsumptionPriceCalculator price;
+    private final ConsumptionCalculator consumption;
+    private final ConsumptionPriceCalculator price;
 
-    FrontendDataManager manager;
+    private final FrontendDataManager manager;
+
+    private final ForecastManager forecastManager;
 
 
-    public UIController(ConsumptionCalculator consumption, ConsumptionPriceCalculator price, FrontendDataManager manager) {
+
+
+    public UIController(ConsumptionCalculator consumption, ConsumptionPriceCalculator price, FrontendDataManager manager, ForecastManager forecastManager) {
         this.consumption = consumption;
         this.price = price;
         this.manager = manager;
+        this.forecastManager = forecastManager;
     }
 
     @GetMapping
-    public String loadTableUI(Model model, @RequestParam String input) {
-        model.addAttribute("months", manager.getMonths(input));
+    public String loadTableUI(Model model, @RequestParam String source) {
+        model.addAttribute("months", manager.getMonths(source));
         //create new method to get all the stuff
-        model.addAttribute("previous", input);
+        model.addAttribute("previous", source);
 
 
         return "mainpagetable";
+    }
+
+    @GetMapping("/forecast")
+    public String loadForecastUI(Model model, @RequestParam String source) {
+        model.addAttribute("datapoints", forecastManager.getFutureData(source));
+        model.addAttribute("previous", source);
+
+        return "forecast";
     }
 }
