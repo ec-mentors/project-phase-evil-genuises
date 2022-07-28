@@ -25,7 +25,7 @@ public class ForecastManager {
             DateTime newTimestamp = timestamp.withYear(2019);
             EnergyDataPoint current = repository.findByEndTimeStampAndSource(newTimestamp, source);
             futurePriceData.add(new EnergyDataPoint(
-                    current.getEndTimeStamp(),
+                    current.getEndTimeStamp().withYear(2022),
                     current.getConsumptionInKWH(),
                     vCost.getPricePerKWH(),
                     source

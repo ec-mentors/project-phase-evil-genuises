@@ -37,7 +37,7 @@ public class UIController {
 
     @GetMapping("/forecast")
     public String loadForecastUI(Model model, @RequestParam String source) {
-        model.addAttribute("datapoints", forecastManager.getFutureData(source));
+        model.addAttribute("datapoints", manager.getForecast(source));
         model.addAttribute("previous", source);
 
         return "forecast";
