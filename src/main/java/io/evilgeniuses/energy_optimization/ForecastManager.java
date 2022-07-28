@@ -45,7 +45,9 @@ public class ForecastManager {
         List<EnergyDataPoint> futurePriceData = new ArrayList<>();
 
         for (VariableCost vCost : futurePrices) {
-            EnergyDataPoint current = repository.findByEndTimeStamp(new DateTime(vCost.getEndTimeStamp()));
+            var timestamp = new DateTime(vCost.getEndTimeStamp());
+            DateTime newTimestamp = timestamp.withYear(2019);
+            EnergyDataPoint current = repository.findByEndTimeStamp();
             futurePriceData.add(new EnergyDataPoint(
                     current.getEndTimeStamp(),
                     current.getConsumptionInKWH(),
