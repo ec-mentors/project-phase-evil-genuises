@@ -4,7 +4,8 @@
 </head>
 <body>
 
-<h1 class="centered">Energy ☂️ Optimizer</h1>
+<h1 class="centered">Energy ☂️ Forecaster</h1>
+
 
 <form class="centered">
 
@@ -21,17 +22,23 @@
     <tr>
         <th>Time</th>
         <th>Usage in kWh</th>
-        <th>Price Forecast</th>
+        <th>Price/kWh</th>
+        <th>Billed Amount</th>
 
     </tr>
     <tr th:each="point : ${datapoints}">
+
         <td th:text="${point.endTimeStamp}"></td>
         <td th:text="${point.consumptionInKWH}"></td>
         <td th:text="${point.pricePerKWH}"></td>
+        <td th:text="${point.billingAmount}"></td>
+
     </tr>
+
+
 </table>
 
-
+<a class="centered" href="/?source=CSV1">--> Energy Analyzer</a>
 
 </body>
 

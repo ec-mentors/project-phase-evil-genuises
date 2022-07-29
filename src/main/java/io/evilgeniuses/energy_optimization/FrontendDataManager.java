@@ -9,10 +9,13 @@ import java.util.Locale;
 @Service
 public class FrontendDataManager {
 
-    EnergyDataPointRepository dataPointRepository;
+    private final EnergyDataPointRepository dataPointRepository;
 
-    public FrontendDataManager(EnergyDataPointRepository dataPointRepository) {
+    private final ForecastManager forecastManager;
+
+    public FrontendDataManager(EnergyDataPointRepository dataPointRepository, ForecastManager forecastManager) {
         this.dataPointRepository = dataPointRepository;
+        this.forecastManager = forecastManager;
     }
 
     public List<MonthDataPointAsString> getMonths(String source) {
@@ -97,6 +100,23 @@ public class FrontendDataManager {
         }
         return outputStrings;
 
+    }
+
+    public List<ForecastDataPoint> getForecast(String source) {
+        var futureData = forecastManager.getFutureData(source);
+        List<ForecastDataPoint> output = new ArrayList<>();
+        for (EnergyDataPoint point : futureData) {
+            output.add(
+                    new ForecastDataPoint(
+                            String.valueOf(point.getEndTimeStamp()),
+                            String.valueOf(point.getConsumptionInKWH()).substring(0, 5) + " kWh",
+                            String.valueOf(point.getPricePerKWH()) + " €",
+                            String.valueOf(point.getPricePerKWH() * point.getConsumptionInKWH()).substring(0, 4)
+                            + " €"));
+
+        }
+
+        return output;
     }
 
 }
