@@ -105,16 +105,38 @@ public class FrontendDataManager {
     public List<ForecastDataPoint> getForecast(String source) {
         var futureData = forecastManager.getFutureData(source);
         List<ForecastDataPoint> output = new ArrayList<>();
+        double totalUsage = 0;
+        double totalBillingAmount = 0;
         for (EnergyDataPoint point : futureData) {
+            double currentConsumption = point.getConsumptionInKWH();
+            double currentPrice = point.getPricePerKWH();
+            double currentBillingAmount = currentConsumption * currentPrice;
+            totalUsage += currentConsumption;
+            totalBillingAmount += currentBillingAmount;
+
             output.add(
                     new ForecastDataPoint(
                             String.valueOf(point.getEndTimeStamp()),
-                            String.valueOf(point.getConsumptionInKWH()).substring(0, 5) + " kWh",
-                            String.valueOf(point.getPricePerKWH()) + " €",
-                            String.valueOf(point.getPricePerKWH() * point.getConsumptionInKWH()).substring(0, 4)
+                            String.valueOf(currentConsumption).substring(0, 5) + " kWh",
+                            String.valueOf(currentPrice) + " €",
+                            String.valueOf(currentPrice * currentConsumption).substring(0, 4)
                             + " €"));
 
         }
+        //we need amount of hours
+
+        String fullDayOutputString = "";
+        if (output.size() == 24) {
+            fullDayOutputString = "FULL DAY COMBINED";
+        } else {
+            fullDayOutputString = "NEXT " + output.size() + " HOURS COMBINED";
+        }
+
+        output.add(new ForecastDataPoint(fullDayOutputString,
+                String.valueOf(totalUsage).substring(0,5) + " kWh",
+                "",
+                String.valueOf(totalBillingAmount).substring(0, 4) + " €"));
+
 
         return output;
     }
