@@ -1,7 +1,10 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.frontend.services;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
+import io.evilgeniuses.energy_optimization.frontend.dataclasses.DiagramData;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
+import io.evilgeniuses.energy_optimization.services.ConsumptionCalculator;
+import io.evilgeniuses.energy_optimization.services.ConsumptionPriceCalculator;
+import io.evilgeniuses.energy_optimization.services.ForecastManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

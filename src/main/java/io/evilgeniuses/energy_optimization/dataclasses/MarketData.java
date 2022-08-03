@@ -1,4 +1,4 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.dataclasses;
 
 import java.util.List;
 

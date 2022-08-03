@@ -1,30 +1,39 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.dataclasses;
 
-import org.joda.time.DateTime;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvNumber;
 
-public class LoadProfilePointWithDateTime {
+public class LoadProfilePoint {
 
-    private DateTime endTimeStamp;
+    private String id;
 
+    @CsvBindByName(column = "Ende Ablesezeitraum",required = true)
+//    @CsvDate("yyyy-MM-dd'T'HH:mm")
+    private String endTimeStamp;
+
+    @CsvBindByName(column = "Messintervall")
     private String measuringInterval;
 
+    @CsvBindByName(column = "Abrechnungsmaßeinheit")
     private String measurementUnit;
 
+    @CsvBindByName(column = "Verbrauch", locale = "de-DE")
+    @CsvNumber("#.###")
     private double consumption;
 
-
-    public LoadProfilePointWithDateTime(DateTime endTimeStamp, String measuringInterval, String measurementUnit, double consumption) {
-        this.endTimeStamp = endTimeStamp;
-        this.measuringInterval = measuringInterval;
-        this.measurementUnit = measurementUnit;
-        this.consumption = consumption;
+    public String getId() {
+        return id;
     }
 
-    public DateTime getEndTimeStamp() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEndTimeStamp() {
         return endTimeStamp;
     }
 
-    public void setEndTimeStamp(DateTime endTimeStamp) {
+    public void setEndTimeStamp(String endTimeStamp) {
         this.endTimeStamp = endTimeStamp;
     }
 

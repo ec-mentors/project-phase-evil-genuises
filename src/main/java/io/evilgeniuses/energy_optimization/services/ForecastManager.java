@@ -1,5 +1,10 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.services;
 
+import io.evilgeniuses.energy_optimization.dataclasses.DataEntry;
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
+import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
+import io.evilgeniuses.energy_optimization.parsing.AwattarClient;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 

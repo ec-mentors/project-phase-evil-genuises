@@ -1,6 +1,10 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.parsing;
 
 import com.google.gson.Gson;
+import io.evilgeniuses.energy_optimization.dataclasses.DataEntry;
+import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
+import io.evilgeniuses.energy_optimization.parsing.AwattarClient;
+import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;

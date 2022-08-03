@@ -1,6 +1,8 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.services;
 
 
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
 import org.springframework.stereotype.Service;
 
 @Service

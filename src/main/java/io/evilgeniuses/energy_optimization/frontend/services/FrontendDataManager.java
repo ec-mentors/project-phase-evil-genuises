@@ -1,5 +1,12 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.frontend.services;
 
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
+import io.evilgeniuses.energy_optimization.services.ForecastManager;
+import io.evilgeniuses.energy_optimization.frontend.dataclasses.DiagramData;
+import io.evilgeniuses.energy_optimization.frontend.dataclasses.ForecastDataPoint;
+import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPoint;
+import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPointAsString;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

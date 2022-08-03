@@ -1,5 +1,7 @@
 package io.evilgeniuses.energy_optimization;
 
+import io.evilgeniuses.energy_optimization.services.ConsumptionCalculator;
+import io.evilgeniuses.energy_optimization.services.ConsumptionPriceCalculator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

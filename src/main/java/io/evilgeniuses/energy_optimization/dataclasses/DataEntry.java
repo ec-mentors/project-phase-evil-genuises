@@ -1,4 +1,4 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.dataclasses;
 
 public class DataEntry {
     private long start_timestamp;

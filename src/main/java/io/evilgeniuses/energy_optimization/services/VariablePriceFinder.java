@@ -1,5 +1,7 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.services;
 
+import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
+import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

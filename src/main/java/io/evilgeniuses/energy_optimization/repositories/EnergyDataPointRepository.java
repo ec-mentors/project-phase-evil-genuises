@@ -1,6 +1,7 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.repositories;
 
 
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
 import org.joda.time.DateTime;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
