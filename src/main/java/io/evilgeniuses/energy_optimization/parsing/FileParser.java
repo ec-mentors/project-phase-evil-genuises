@@ -1,6 +1,12 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.parsing;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
+import io.evilgeniuses.energy_optimization.dataclasses.LoadProfilePoint;
+import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
+import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
+import io.evilgeniuses.energy_optimization.services.VariablePriceFinder;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,7 +46,7 @@ public class FileParser {
         this.sourceTwo = sourceTwo;
     }
 
-        void parseAndSave() {
+       public void parseAndSave() {
 
             List<EnergyDataPoint> output = new ArrayList<>();
 

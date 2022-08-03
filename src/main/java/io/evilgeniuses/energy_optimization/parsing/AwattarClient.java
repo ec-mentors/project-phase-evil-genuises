@@ -1,5 +1,6 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.parsing;
 
+import io.evilgeniuses.energy_optimization.dataclasses.MarketData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;

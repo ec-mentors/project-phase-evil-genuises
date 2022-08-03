@@ -1,9 +1,7 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.services;
 
+import io.evilgeniuses.energy_optimization.services.ConsumptionCalculator;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ConsumptionPriceCalculator {

@@ -1,5 +1,6 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.repositories;
 
+import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

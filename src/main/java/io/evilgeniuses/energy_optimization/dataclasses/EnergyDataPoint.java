@@ -1,4 +1,4 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.dataclasses;
 
 import org.joda.time.DateTime;
 

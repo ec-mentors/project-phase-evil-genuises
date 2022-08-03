@@ -1,4 +1,4 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.parsing;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,7 @@
 package io.evilgeniuses.energy_optimization;
 
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
+import io.evilgeniuses.energy_optimization.services.ConsumptionCalculator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ConsumptionCalculatorTest {

@@ -1,6 +1,10 @@
-package io.evilgeniuses.energy_optimization;
+package io.evilgeniuses.energy_optimization.deprecated;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
+import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
+import io.evilgeniuses.energy_optimization.dataclasses.LoadProfilePoint;
+import io.evilgeniuses.energy_optimization.services.VariablePriceFinder;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
