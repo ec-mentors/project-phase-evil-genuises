@@ -17,11 +17,13 @@ public class RunnerManager {
     }
 
     @Bean
-    ApplicationRunner CsvRunner(CsvFileParser2 parser, EnergyDataPointRepository repository) {
+    ApplicationRunner CsvRunner(FileParser parser, EnergyDataPointRepository repository) {
         return args -> {
             if (repository.findAll().isEmpty()) {
                 parser.parseAndSave();
             }
         };
+
+
     }
 }
