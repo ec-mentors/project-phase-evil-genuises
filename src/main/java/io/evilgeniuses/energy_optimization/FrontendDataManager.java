@@ -141,4 +141,21 @@ public class FrontendDataManager {
         return output;
     }
 
+    public List<DiagramData> getDiagramData(String source){
+        var diagramData = forecastManager.getFutureData(source);
+        List<DiagramData> output = new ArrayList<>();
+
+        for (EnergyDataPoint point : diagramData) {
+
+            output.add(
+                    new DiagramData(
+                            point.getEndTimeStamp().getHourOfDay(),
+                            point.getConsumptionInKWH(),
+                            point.getPricePerKWH()
+                            ));
+
+        }
+        return output;
+    }
+
 }

@@ -1,5 +1,7 @@
 package io.evilgeniuses.energy_optimization;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,18 +52,13 @@ public class UIController {
     }
 
     @GetMapping("/chart")
-    public String getPieChart(Model model) {
-        var energyData = repository.findAll();
-        var usage4Entries = energyData.stream()
-                .limit(4)
-                .map(EnergyDataPoint::getConsumptionInKWH)
-                .toList();
+    public String getPieChart(Model model, @RequestParam(defaultValue = "---") String source) {
+        var dataList = manager.getDiagramData(source);
 
-        Map<String, Double> graphData = new TreeMap<>();
-        graphData.put("1", usage4Entries.get(0));
-        graphData.put("2", usage4Entries.get(1));
-        graphData.put("3", usage4Entries.get(2));
-        graphData.put("4", usage4Entries.get(3));
+        Map<Integer, Double> graphData = new TreeMap<>();
+        for (DiagramData data : dataList) {
+            graphData.put(data.getHour(),data.getPrice() * data.getKwh());
+        }
         model.addAttribute("chartData", graphData);
         return "google-charts";
     }
