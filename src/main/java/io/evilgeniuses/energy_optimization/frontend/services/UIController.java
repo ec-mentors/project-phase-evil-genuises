@@ -47,15 +47,9 @@ public class UIController {
     }
 
     @GetMapping("/forecast")
-    public String loadForecastUI(Model model, @RequestParam String source) {
+    public String loadForecastUI(Model model, @RequestParam(defaultValue = "---") String source) {
         model.addAttribute("datapoints", manager.getForecast(source));
         model.addAttribute("previous", source);
-
-        return "forecast";
-    }
-
-    @GetMapping("/chart")
-    public String getPieChart(Model model, @RequestParam(defaultValue = "---") String source) {
         var dataList = manager.getDiagramData(source);
 
         Map<Integer, Double> graphData = new TreeMap<>();
@@ -63,6 +57,22 @@ public class UIController {
             graphData.put(data.getHour(),data.getPrice() * data.getKwh());
         }
         model.addAttribute("chartData", graphData);
-        return "google-charts";
+
+        return "forecast";
     }
+
+
+//  only for Training!
+
+//    @GetMapping("/chart")
+//    public String getPieChart(Model model, @RequestParam(defaultValue = "---") String source) {
+//        var dataList = manager.getDiagramData(source);
+//
+//        Map<Integer, Double> graphData = new TreeMap<>();
+//        for (DiagramData data : dataList) {
+//            graphData.put(data.getHour(),data.getPrice() * data.getKwh());
+//        }
+//        model.addAttribute("chartData", graphData);
+//        return "google-charts";
+//    }
 }

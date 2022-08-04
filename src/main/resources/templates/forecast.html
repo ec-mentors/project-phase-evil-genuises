@@ -1,7 +1,12 @@
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <script src="https://cdn.tailwindcss.com"></script>
-    <title>Title</title>
+    <meta charset="ISO-8859-1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Energy Forecaster</title>
 </head>
 <body>
 
@@ -33,18 +38,58 @@
     </div>
   </nav>
 
-<h1 class="centered"></h1>
-
+  <div align="center">
 
 <form class="centered">
+
+    <br>
+
     <select name="source" id="2" th:value="${previous}">
+
+        <br>
 
         <option selected>---</option>
         <option value="CSV1">CSV1-Da+Db</option>
         <option value="CSV2">CSV2-Dd+De</option>
 
         <input class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit" >
-    </select>
+        <div id="chart_div"></div>
+  </div>
+
+  <script th:inline="javascript">
+        var real_data = /*[[${chartData}]]*/'noValue';
+        $(document).ready(function() {
+            google.charts.load('current', {
+                packages : [ 'corechart', 'bar' ]
+            });
+            google.charts.setOnLoadCallback(drawColumnChart);
+        });
+        function drawColumnChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Full hours');
+            data.addColumn('number', 'price');
+            Object.keys(real_data).forEach(function(key) {
+                data.addRow([ key, real_data[key] ]);
+            });
+            var options = {
+            hAxis : {
+            title : 'Full hours',
+                },
+            vAxis : {
+            title : 'price'
+                }
+        };
+
+        var chart = new google.visualization.LineChart(document
+            .getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+</script>
+
+  <br>
+  <br>
+
 </form>
 <table class="centered-table">
     <tr>

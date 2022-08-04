@@ -3,10 +3,8 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Google Charts Example - Spring Boot</title>
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
@@ -41,45 +39,18 @@
                 data.addRow([ key, real_data[key] ]);
             });
             var options = {
-            chart: {
-                title : 'Load Profile'
+            hAxis : {
+            title : 'Full hours',
                 },
-                hAxis: {
-                title: 'Full hours'
-                },
-                vAxis: {
-                title: 'price'
-                },
-                series: {
-                0: {axis: 'Temps'},
-                1: {axis: 'Daylight'}
-                },
-                axes: {
-                y: {
-                Temps: {label: 'Temps (Celsius)'},
-                Daylight: {label: 'Daylight'}
+            vAxis : {
+            title : 'price'
                 }
-            }
         };
 
-
-<!--                hAxis : {-->
-<!--                    title : 'Full hours',-->
-<!--                },-->
-<!--                vAxis : {-->
-<!--                    title : 'price'-->
-<!--                }-->
-
-            var chart = new google.visualization.LineChart(document
-                    .getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document
+            .getElementById('chart_div'));
             chart.draw(data, options);
-
-
         }
-
-
-
-
 
 </script>
 </body>
