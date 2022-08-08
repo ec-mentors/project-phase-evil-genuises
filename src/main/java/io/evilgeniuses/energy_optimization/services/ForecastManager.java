@@ -43,16 +43,16 @@ public class ForecastManager {
     public double findThreeDayAverageUsage(DateTime timestamp, String source){
 
         EnergyDataPoint freshestEDP = null;
-       int count = 0;
+        int count = 0;
         while (true){
             count++;
 
             DateTime timestampMinusOneWeek = timestamp.minusWeeks(count);
-            Optional<EnergyDataPoint> current = Optional.of(repository.findByEndTimeStampAndSource(timestampMinusOneWeek, source));
+            EnergyDataPoint current = repository.findByEndTimeStampAndSource(timestampMinusOneWeek, source);
 
-            if (current.isPresent()){
+            if (current != null){
 
-                freshestEDP = current.get();
+                freshestEDP = current;
 
                 break;
             }
