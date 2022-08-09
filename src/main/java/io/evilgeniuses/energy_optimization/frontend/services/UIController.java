@@ -39,6 +39,7 @@ public class UIController {
     @GetMapping
     public String loadTableUI(Model model, @RequestParam(defaultValue = "---") String source) {
         model.addAttribute("months", manager.getMonths(source));
+        model.addAttribute("options", manager.getSourceKeys());
         //create new method to get all the stuff
         model.addAttribute("previous", source);
 

@@ -20,6 +20,8 @@ public class FrontendDataManager {
 
     private final ForecastManager forecastManager;
 
+    private final List<String> sourceKeys = new ArrayList<>();
+
     public FrontendDataManager(EnergyDataPointRepository dataPointRepository, ForecastManager forecastManager) {
         this.dataPointRepository = dataPointRepository;
         this.forecastManager = forecastManager;
@@ -163,6 +165,14 @@ public class FrontendDataManager {
 
         }
         return output;
+    }
+
+    public List<String> getSourceKeys() {
+        return sourceKeys;
+    }
+
+    public void addToSourceKeys(String key) {
+        sourceKeys.add(key);
     }
 
 }

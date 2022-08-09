@@ -6,6 +6,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 public class RunnerManager {
 
@@ -22,15 +25,13 @@ public class RunnerManager {
     ApplicationRunner CsvRunner(FileParser parser, EnergyDataPointRepository repository) {
         return args -> {
             //delete the DB with all Custom Entities after each start
-                if (!repository.findBySource("CUSTOM").isEmpty()){
-                    repository.deleteBySource("CUSTOM");
+            if (!repository.findBySource("CUSTOM").isEmpty()) {
+                repository.deleteBySource("CUSTOM");
 
-                }
-                if (repository.findAll().isEmpty()) {
-                    parser.parseAndSave();
-                }
+            }
+            if (repository.findAll().isEmpty()) {
+                parser.parseAndSave();
+            }
         };
-
-
     }
 }
