@@ -1,7 +1,5 @@
 package io.evilgeniuses.energy_optimization.parsing;
 
-import io.evilgeniuses.energy_optimization.parsing.FileParser;
-import io.evilgeniuses.energy_optimization.parsing.JsonParser;
 import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
 import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
 import org.springframework.boot.ApplicationRunner;
@@ -23,9 +21,14 @@ public class RunnerManager {
     @Bean
     ApplicationRunner CsvRunner(FileParser parser, EnergyDataPointRepository repository) {
         return args -> {
-            if (repository.findAll().isEmpty()) {
-                parser.parseAndSave();
-            }
+            //delete the DB with all Custom Entities after each start
+                if (!repository.findBySource("CUSTOM").isEmpty()){
+                    repository.deleteBySource("CUSTOM");
+
+                }
+                if (repository.findAll().isEmpty()) {
+                    parser.parseAndSave();
+                }
         };
 
 

@@ -10,4 +10,5 @@ public interface EnergyDataPointRepository extends MongoRepository<EnergyDataPoi
 
     List<EnergyDataPoint> findBySource(String source);
     EnergyDataPoint findByEndTimeStampAndSource(DateTime endTimeStamp, String source);
+    void deleteBySource(String source);
 }

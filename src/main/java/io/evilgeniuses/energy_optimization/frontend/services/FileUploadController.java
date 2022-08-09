@@ -1,6 +1,7 @@
 package io.evilgeniuses.energy_optimization.frontend.services;
 
 
+import io.evilgeniuses.energy_optimization.parsing.FileParser_Upload;
 import io.evilgeniuses.energy_optimization.storage.StorageFileNotFoundException;
 import io.evilgeniuses.energy_optimization.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ import java.util.stream.Collectors;
 public class FileUploadController {
 
     private final StorageService storageService;
+    private final FileParser_Upload upload;
 
     @Autowired
-    public FileUploadController(StorageService storageService) {
+    public FileUploadController(StorageService storageService, FileParser_Upload upload) {
         this.storageService = storageService;
+        this.upload = upload;
     }
 
     @GetMapping("/upload")
@@ -54,6 +57,9 @@ public class FileUploadController {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        var filename = storageService.loadAll().map(path -> path.getFileName()).findFirst().orElse(null).toString();
+        upload.parseAndSave("upload-dir/" + filename);
 
         return "redirect:/";
     }

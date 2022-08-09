@@ -8,10 +8,10 @@ import io.evilgeniuses.energy_optimization.services.ForecastManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Controller
 public class UIController {
@@ -69,8 +69,10 @@ public class UIController {
 //        var dataList = manager.getDiagramData(source);
 //
 //        Map<Integer, Double> graphData = new TreeMap<>();
+//        List<Double> usage = new ArrayList<>();
 //        for (DiagramData data : dataList) {
-//            graphData.put(data.getHour(),data.getPrice() * data.getKwh());
+//            graphData.put(data.getHour(), data.getPrice() * data.getKwh());
+//            usage.add(data.getKwh());
 //        }
 //        model.addAttribute("chartData", graphData);
 //        return "google-charts";
