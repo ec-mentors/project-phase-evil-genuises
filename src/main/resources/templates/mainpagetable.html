@@ -19,44 +19,40 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Docs
+            <a href="/forecast/?source=CSV1" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                Switch to Forecaster
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Examples
-            </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                Blog
-            </a>
-        </div>
+            
+        </div><div>
+              <a href="/upload" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Upload your own CSV file</a>
+            </div>
     </div>
 </nav>
 
-<form class="centered">
+<form class="justify-center flex-auto align-items">
 
-<select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
+<select class="justify-center flex-auto align-items my-2 w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
 
     <option selected>---</option>
     <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
-
-
-    <input class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit" >
+    <input class="my-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit" >
 </select>
 </form>
-    <table class="centered-table">
-        <tr>
-          <th>Month</th>
-          <th>Usage in kWh</th>
-          <th>Fixed Price</th>
-          <th>Variable Price</th>
-          <th>Difference</th>
+
+    <table class="w-2/3 overflow-x-auto relative shadow-md sm:rounded-lg w-full text-sm text-left text-gray-500">
+        <tr class="text-xs text-gray-700 uppercase bg-gray-50">
+          <th scope="col" class="py-3 px-6">Month</th>
+          <th scope="col" class="py-3 px-6">Usage in kWh</th>
+          <th scope="col" class="py-3 px-6">Fixed Price</th>
+          <th scope="col" class="py-3 px-6">Variable Price</th>
+          <th scope="col" class="py-3 px-6">Difference</th>
         </tr>
-        <tr th:each="month : ${months}">
-          <td th:text="${month.monthName}"></td>
-            <td th:text="${month.usage}"></td>
-            <td th:text="${month.fixedCost}"></td>
-            <td th:text="${month.variableCost}"></td>
-            <td th:text="${month.difference}"></td>
+        <tr class="bg-white border-b hover:bg-gray-200" th:each="month : ${months}">
+          <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.monthName}"></td>
+            <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.usage}"></td>
+            <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.fixedCost}"></td>
+            <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.variableCost}"></td>
+            <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.difference}"></td>
         </tr>
     </table>
 
@@ -66,77 +62,11 @@
 </body>
 
 <style>
-
-  .centered {
-    text-align: center;
-  }
-
-  table {
-    border-radius: 6px;
-  }
-
-  .centered-table {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-table, th, td {
-  font-family: Arial, Helvetica, sans-serif;
-  border: 1px solid;
-  border-collapse: collapse;
-  border-spacing: 10px;
+  .centerDiv {
+display: flex;
+justify-content: center;
+align-items: center;
 }
-
-h1 {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-p {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: hsl(158, 95%, 34%);
-  color: white;
-}
-
-td, th {
-  border: 1px solid #ddd;
-  padding: 12px;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-
-.join-button {
-        background-color: rgb(255, 255, 255);
-        border-color: rgb(34, 34, 215);
-        border-style: solid;
-        border-width: 1px;
-        color: rgb(34, 34, 215);
-        height: 36px;
-        width: 84px;
-        border-radius: 2px;
-        cursor: pointer;
-        margin-left: 8px;
-        transition: 0.3s;
-        font-size: 18px;
-    }
-
-    .join-button:hover {
-        background-color: rgb(34, 34, 215);
-        color: white    ;
-    }
-
-    .join-button:active {
-        opacity: 0.5;
-    }
-
-
 </style>
 
 
