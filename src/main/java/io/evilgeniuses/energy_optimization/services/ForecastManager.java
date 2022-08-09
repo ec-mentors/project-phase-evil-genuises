@@ -28,41 +28,17 @@ public class ForecastManager {
 
         for (VariableCost vCost : futurePrices) {
             var timestamp = new DateTime(vCost.getEndTimeStamp());
-
+            DateTime newTimestamp = timestamp.withYear(2019);
+            EnergyDataPoint current = repository.findByEndTimeStampAndSource(newTimestamp, source);
             futurePriceData.add(new EnergyDataPoint(
-                    timestamp,
-                    findThreeDayAverageUsage(timestamp, source),
+                    current.getEndTimeStamp().withYear(2022),
+                    current.getConsumptionInKWH(),
                     vCost.getPricePerKWH(),
                     source
             ));
         }
 
         return futurePriceData;
-    }
-
-    public double findThreeDayAverageUsage(DateTime timestamp, String source){
-
-        EnergyDataPoint freshestEDP = null;
-        int count = 0;
-        while (true){
-            count++;
-
-            DateTime timestampMinusOneWeek = timestamp.minusWeeks(count);
-            EnergyDataPoint current = repository.findByEndTimeStampAndSource(timestampMinusOneWeek, source);
-
-            if (current != null){
-
-                freshestEDP = current;
-
-                break;
-            }
-        }
-
-        double first = freshestEDP.getConsumptionInKWH();
-        double second = repository.findByEndTimeStampAndSource(freshestEDP.getEndTimeStamp().minusWeeks(1), source).getConsumptionInKWH();
-        double third = repository.findByEndTimeStampAndSource(freshestEDP.getEndTimeStamp().minusWeeks(2), source).getConsumptionInKWH();
-
-        return (first + second + third) / 3;
     }
 
     private List<VariableCost> getFutureCosts() {
