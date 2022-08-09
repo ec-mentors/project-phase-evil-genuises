@@ -9,6 +9,7 @@ import java.util.List;
 public interface EnergyDataPointRepository extends MongoRepository<EnergyDataPoint,String> {
 
     List<EnergyDataPoint> findBySource(String source);
+    List<EnergyDataPoint> findAllBySource(String source);
     EnergyDataPoint findByEndTimeStampAndSource(DateTime endTimeStamp, String source);
     void deleteBySource(String source);
 }
