@@ -29,17 +29,21 @@
     </div>
 </nav>
 
-<form class="justify-center flex-auto align-items">
+<div class="flex justify-center">
 
-<select class="justify-center flex-auto align-items my-2 w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
+<form class="justify-center justify-center flex-auto align-items">
+
+<select class="justify-center justify-center flex-auto align-items my-2 w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
 
     <option selected>---</option>
     <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
     <input class="my-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit" >
 </select>
 </form>
+</div>
+<div class="flex justify-center">
 
-    <table class="w-2/3 overflow-x-auto relative shadow-md sm:rounded-lg w-full text-sm text-left text-gray-500">
+    <table class="justify-center w-2/3 overflow-x-auto relative shadow-md sm:rounded-lg w-full text-sm text-left text-gray-500">
         <tr class="text-xs text-gray-700 uppercase bg-gray-50">
           <th scope="col" class="py-3 px-6">Month</th>
           <th scope="col" class="py-3 px-6">Usage in kWh</th>
@@ -55,11 +59,11 @@
             <td class="py-4 px-6 hover:{bg-lightgrey}" th:text="${month.difference}"></td>
         </tr>
     </table>
-
-    <p class="centered">Fixed Price is calculated with 0.276 Euro per kWh and Variable Price is calculated with Awattar API data.</p>
-
-  <a class="centered" href="/forecast/?source=CSV1">--> Energy Forecaster</a>
-</body>
+</div>
+<div class="flex justify-center">
+    <p class="justify-center">Fixed Price is calculated with 0.276 Euro per kWh and Variable Price is calculated with Awattar API data.</p>
+  </div>
+  </body>
 
 <style>
   .centerDiv {
