@@ -39,21 +39,28 @@
     </div>
   </nav>
 
-  <div>
-    <div class="flex justify-center items-stretch">
-      <div class="flex justify-center items-stretch">
-
+  
+    
+  <div class="w-1/4 flex justify-center items-stretch"></div>
+  <div class="w-1/4 flex justify-center items-stretch">
     <form class="justify-center justify-center flex-auto align-items">
 
-      <select class="justify-center justify-center flex-auto align-items my-2 w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
+      <select class="w-1/4 justify-center justify-center flex-auto align-items my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="source" id="2" th:value="${previous}">
       
           <option selected>---</option>
           <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
           <input class="my-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit" >
       </select>
       </form>
+      </div>
+    </div>
+    
+
+    
+      
+        
         <div class="flex justify-center items-stretch" id="chart_div"></div>
-  </div></div></div>
+  
 
   <script th:inline="javascript">
         var real_data = /*[[${chartData}]]*/'noValue';
