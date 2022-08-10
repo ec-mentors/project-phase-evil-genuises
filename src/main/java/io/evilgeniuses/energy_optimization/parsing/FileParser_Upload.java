@@ -57,12 +57,12 @@ public class FileParser_Upload {
                 .build()
                 .parse();
 
-
-        // give each File the source with the filename
-        output.addAll(createEDPs(dataCsvFile1, storageService.loadAll().map(ele -> ele.getFileName()).findFirst().orElse(null).toString()));
-        frontendDataManager.addToSourceKeys(storageService.loadAll().map(ele->ele.getFileName()).findFirst().orElse(null).toString());
+        var filenames = storageService.loadAll()
+                .map(onePath -> onePath.getFileName().toString())
+                .toList();
+        output.addAll(createEDPs(dataCsvFile1, filenames.get(filenames.size() -1)));
+        frontendDataManager.addToSourceKeys(filenames.get(filenames.size() -1));
         repository.saveAll(output);
-
 
 
 //        possible Way to parse the Dateformat from Smart Meter File

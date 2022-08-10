@@ -58,8 +58,10 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        var filename = storageService.loadAll().map(path -> path.getFileName()).findFirst().orElse(null).toString();
-        upload.parseAndSave("upload-dir/" + filename);
+        var filenames = storageService.loadAll()
+                .map(path -> path.getFileName().toString()).toList();
+
+        upload.parseAndSave("upload-dir/" + filenames.get(filenames.size() -1));
 
         return "redirect:/";
     }
