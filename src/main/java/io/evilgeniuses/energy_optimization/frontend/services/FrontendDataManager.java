@@ -7,6 +7,7 @@ import io.evilgeniuses.energy_optimization.frontend.dataclasses.DiagramData;
 import io.evilgeniuses.energy_optimization.frontend.dataclasses.ForecastDataPoint;
 import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPoint;
 import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPointAsString;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -123,6 +124,11 @@ public class FrontendDataManager {
             totalUsage += currentConsumption;
             totalBillingAmount += currentBillingAmount;
 
+            if (point.getSource().equals("---")) {
+                output.add(new ForecastDataPoint("0", "0", "0", "0"));
+                break;
+            }
+
             output.add(
                     new ForecastDataPoint(
                             String.valueOf(point.getEndTimeStamp()),
@@ -141,11 +147,14 @@ public class FrontendDataManager {
             fullDayOutputString = "NEXT " + output.size() + " HOURS COMBINED";
         }
 
+        if (output.size() == 1) {
+            return output;
+        }
+
         output.add(new ForecastDataPoint(fullDayOutputString,
                 String.valueOf(totalUsage).substring(0,5) + " kWh",
                 "",
                 String.valueOf(totalBillingAmount).substring(0, 4) + " €"));
-
 
         return output;
     }

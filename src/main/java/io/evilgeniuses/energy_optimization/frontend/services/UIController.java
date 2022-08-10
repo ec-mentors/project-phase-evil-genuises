@@ -55,10 +55,12 @@ public class UIController {
         var dataList = manager.getDiagramData(source);
 
         Map<Integer, Double> graphData = new TreeMap<>();
-        for (DiagramData data : dataList) {
-            graphData.put(data.getHour(),data.getPrice() * data.getKwh());
+        if (!dataList.isEmpty()) {
+            for (DiagramData data : dataList) {
+                graphData.put(data.getHour(), data.getPrice() * data.getKwh());
+            }
+            model.addAttribute("chartData", graphData);
         }
-        model.addAttribute("chartData", graphData);
 
         return "forecast";
     }

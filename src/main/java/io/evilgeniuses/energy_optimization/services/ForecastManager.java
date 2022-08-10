@@ -26,10 +26,15 @@ public class ForecastManager {
         var futurePrices = getFutureCosts();
         List<EnergyDataPoint> futurePriceData = new ArrayList<>();
 
+
         for (VariableCost vCost : futurePrices) {
             var timestamp = new DateTime(vCost.getEndTimeStamp());
             DateTime newTimestamp = timestamp.withYear(2019);
-            EnergyDataPoint current = repository.findByEndTimeStampAndSource(newTimestamp, source);
+            EnergyDataPoint current = new EnergyDataPoint(new DateTime(0), 0, 0, "---");
+            EnergyDataPoint tryCurrent = repository.findByEndTimeStampAndSource(newTimestamp, source);
+            if (tryCurrent != null) {
+                current = tryCurrent;
+            }
             futurePriceData.add(new EnergyDataPoint(
                     current.getEndTimeStamp().withYear(2022),
                     current.getConsumptionInKWH(),
