@@ -22,16 +22,13 @@ public class RunnerManager {
     }
 
     @Bean
-    ApplicationRunner CsvRunner(FileParser parser, EnergyDataPointRepository repository) {
+    ApplicationRunner CsvRunner(EnergyDataPointRepository repository) {
         return args -> {
-            //delete the DB with all Custom Entities after each start
-            if (!repository.findBySource("CUSTOM").isEmpty()) {
-                repository.deleteBySource("CUSTOM");
-
-            }
-            if (repository.findAll().isEmpty()) {
-                parser.parseAndSave();
+            //delete the DB with all Entities after each start
+            if (!repository.findAll().isEmpty()) {
+                repository.deleteAll();
             }
         };
     }
 }
+

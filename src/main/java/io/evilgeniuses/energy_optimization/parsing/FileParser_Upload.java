@@ -4,12 +4,12 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import io.evilgeniuses.energy_optimization.dataclasses.EnergyDataPoint;
 import io.evilgeniuses.energy_optimization.dataclasses.LoadProfilePoint;
 import io.evilgeniuses.energy_optimization.dataclasses.VariableCost;
+import io.evilgeniuses.energy_optimization.frontend.services.FrontendDataManager;
 import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
 import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
 import io.evilgeniuses.energy_optimization.services.VariablePriceFinder;
 import io.evilgeniuses.energy_optimization.storage.StorageService;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -24,15 +24,17 @@ public class FileParser_Upload {
     private final VariableCostRepository costRepository;
     private final VariablePriceFinder priceFinder;
     private final StorageService storageService;
+    private final FrontendDataManager frontendDataManager;
 
     public FileParser_Upload(EnergyDataPointRepository repository,
                              VariableCostRepository costRepository,
                              VariablePriceFinder priceFinder,
-                             StorageService storageService) {
+                             StorageService storageService, FrontendDataManager frontendDataManager) {
         this.repository = repository;
         this.costRepository = costRepository;
         this.priceFinder = priceFinder;
         this.storageService = storageService;
+        this.frontendDataManager = frontendDataManager;
     }
 
     public void parseAndSave(String path) {
@@ -56,9 +58,9 @@ public class FileParser_Upload {
                 .parse();
 
 
-        // possible way to have the name of the file as source...
-//            output.addAll(createEDPs(dataCsvFile1, storageService.loadAll().map(ele -> ele.getFileName()).findFirst().orElse(null).toString()));
-        output.addAll(createEDPs(dataCsvFile1, "CUSTOM"));
+        // give each File the source with the filename
+        output.addAll(createEDPs(dataCsvFile1, storageService.loadAll().map(ele -> ele.getFileName()).findFirst().orElse(null).toString()));
+        frontendDataManager.addToSourceKeys(storageService.loadAll().map(ele->ele.getFileName()).findFirst().orElse(null).toString());
         repository.saveAll(output);
 
 
