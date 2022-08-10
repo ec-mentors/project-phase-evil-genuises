@@ -23,22 +23,24 @@ public class JsonParser {
         this.client = client;
     }
 
-    public void parseAndSave() {
-        Gson gson = new Gson();
-        try {
-            var list = Arrays.stream(gson.fromJson(new FileReader("src/main/resources/2019.json"), DataEntry[].class)).toList();
-            List<VariableCost> energyList = new ArrayList<>();
+    //unused because we get Data directly from the API
 
-            for (DataEntry entry : list) {
-                energyList.add(new VariableCost(entry.getEnd_timestamp(),
-                        (Math.round(entry.getMarketprice() / 1000 * 10000) / 10000.0)));
-            }
-
-            repository.saveAll(energyList);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void parseAndSave() {
+//        Gson gson = new Gson();
+//        try {
+//            var list = Arrays.stream(gson.fromJson(new FileReader("src/main/resources/2019.json"), DataEntry[].class)).toList();
+//            List<VariableCost> energyList = new ArrayList<>();
+//
+//            for (DataEntry entry : list) {
+//                energyList.add(new VariableCost(entry.getEnd_timestamp(),
+//                        (Math.round(entry.getMarketprice() / 1000 * 10000) / 10000.0)));
+//            }
+//
+//            repository.saveAll(energyList);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
     public void saveFromApi(){
         var data = client.getDataFromYear2019();
         var dataEntries = data.getData();
