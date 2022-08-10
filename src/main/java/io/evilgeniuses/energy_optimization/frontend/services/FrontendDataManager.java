@@ -151,8 +151,10 @@ public class FrontendDataManager {
     }
 
     public List<DiagramData> getDiagramData(String source){
-        var diagramData = forecastManager.getFutureData(source);
         List<DiagramData> output = new ArrayList<>();
+        List<EnergyDataPoint> diagramData = forecastManager.getFutureData(source);
+
+
 
         for (EnergyDataPoint point : diagramData) {
 

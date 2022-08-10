@@ -50,6 +50,7 @@ public class UIController {
     @GetMapping("/forecast")
     public String loadForecastUI(Model model, @RequestParam(defaultValue = "---") String source) {
         model.addAttribute("datapoints", manager.getForecast(source));
+        model.addAttribute("options", manager.getSourceKeys());
         model.addAttribute("previous", source);
         var dataList = manager.getDiagramData(source);
 
