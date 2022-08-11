@@ -2,6 +2,8 @@ package io.evilgeniuses.energy_optimization.frontend.services;
 
 
 import io.evilgeniuses.energy_optimization.parsing.FileParser_Upload;
+import io.evilgeniuses.energy_optimization.parsing.CustomUploadData;
+import io.evilgeniuses.energy_optimization.storage.FileSystemStorageService;
 import io.evilgeniuses.energy_optimization.storage.StorageFileNotFoundException;
 import io.evilgeniuses.energy_optimization.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -23,11 +26,13 @@ public class FileUploadController {
 
     private final StorageService storageService;
     private final FileParser_Upload upload;
+    private final FileSystemStorageService fileSystemStorageService;
 
     @Autowired
-    public FileUploadController(StorageService storageService, FileParser_Upload upload) {
+    public FileUploadController(StorageService storageService, FileParser_Upload upload, FileSystemStorageService fileSystemStorageService) {
         this.storageService = storageService;
         this.upload = upload;
+        this.fileSystemStorageService = fileSystemStorageService;
     }
 
     @GetMapping("/upload")
@@ -58,10 +63,12 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        var filenames = storageService.loadAll()
-                .map(path -> path.getFileName().toString()).toList();
+        var uploadData = fileSystemStorageService.getUploadDataList()
+                .stream()
+                .sorted(Comparator.comparing(CustomUploadData::getTimestamp))
+                .toList();
 
-        upload.parseAndSave("upload-dir/" + filenames.get(filenames.size() -1));
+        upload.parseAndSave("upload-dir/" + uploadData.get(uploadData.size() -1).getFileName());
 
         return "redirect:/";
     }

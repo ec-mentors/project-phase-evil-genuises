@@ -1,6 +1,6 @@
 package io.evilgeniuses.energy_optimization.storage;
 
-import io.evilgeniuses.energy_optimization.parsing.UploadData;
+import io.evilgeniuses.energy_optimization.parsing.CustomUploadData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -22,19 +22,19 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
-    private List<UploadData> uploadDataList = new ArrayList<>();
+    private List<CustomUploadData> customUploadDataList = new ArrayList<>();
 
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    public List<UploadData> getUploadDataList() {
-        return uploadDataList;
+    public List<CustomUploadData> getUploadDataList() {
+        return customUploadDataList;
     }
 
-    public void setUploadDataList(List<UploadData> uploadDataList) {
-        this.uploadDataList = uploadDataList;
+    public void setUploadDataList(List<CustomUploadData> customUploadDataList) {
+        this.customUploadDataList = customUploadDataList;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-            uploadDataList.add(new UploadData(file.getOriginalFilename(), new Date().getTime()));
+            customUploadDataList.add(new CustomUploadData(file.getOriginalFilename(), new Date().getTime()));
 
 
         } catch (IOException e) {

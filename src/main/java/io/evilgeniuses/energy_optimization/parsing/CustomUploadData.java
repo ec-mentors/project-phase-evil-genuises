@@ -1,12 +1,12 @@
 package io.evilgeniuses.energy_optimization.parsing;
 
 
-public class UploadData {
+public class CustomUploadData {
 
     private String fileName;
     private long timestamp;
 
-    public UploadData(String fileName, long timestamp) {
+    public CustomUploadData(String fileName, long timestamp) {
         this.fileName = fileName;
         this.timestamp = timestamp;
     }

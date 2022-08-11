@@ -22,19 +22,15 @@ public class FileParser_Upload {
 
     private final EnergyDataPointRepository repository;
     private final VariableCostRepository costRepository;
-    private final VariablePriceFinder priceFinder;
-    private final StorageService storageService;
     private final FrontendDataManager frontendDataManager;
     private final FileSystemStorageService fileSystemStorageService;
 
     public FileParser_Upload(EnergyDataPointRepository repository,
                              VariableCostRepository costRepository,
-                             VariablePriceFinder priceFinder,
-                             StorageService storageService, FrontendDataManager frontendDataManager, FileSystemStorageService fileSystemStorageService) {
+                             FrontendDataManager frontendDataManager,
+                             FileSystemStorageService fileSystemStorageService) {
         this.repository = repository;
         this.costRepository = costRepository;
-        this.priceFinder = priceFinder;
-        this.storageService = storageService;
         this.frontendDataManager = frontendDataManager;
         this.fileSystemStorageService = fileSystemStorageService;
     }
@@ -62,10 +58,8 @@ public class FileParser_Upload {
 
         var uploadData = fileSystemStorageService.getUploadDataList()
                 .stream()
-                .sorted(Comparator.comparing(UploadData::getTimestamp))
+                .sorted(Comparator.comparing(CustomUploadData::getTimestamp))
                 .toList();
-
-        System.out.println(uploadData);
 
         output.addAll(createEDPs(dataCsvFile1, uploadData.get(uploadData.size() - 1).getFileName()));
         frontendDataManager.addToSourceKeys(uploadData.get(uploadData.size() - 1).getFileName());
