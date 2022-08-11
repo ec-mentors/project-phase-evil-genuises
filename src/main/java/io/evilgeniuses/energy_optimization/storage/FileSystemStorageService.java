@@ -1,5 +1,6 @@
 package io.evilgeniuses.energy_optimization.storage;
 
+import io.evilgeniuses.energy_optimization.parsing.UploadData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -12,16 +13,28 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
+    private List<UploadData> uploadDataList = new ArrayList<>();
 
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
+    }
+
+    public List<UploadData> getUploadDataList() {
+        return uploadDataList;
+    }
+
+    public void setUploadDataList(List<UploadData> uploadDataList) {
+        this.uploadDataList = uploadDataList;
     }
 
     @Override
@@ -31,6 +44,9 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            uploadDataList.add(new UploadData(file.getOriginalFilename(), new Date().getTime()));
+
+
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }

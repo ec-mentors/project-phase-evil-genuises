@@ -8,14 +8,14 @@ import io.evilgeniuses.energy_optimization.frontend.services.FrontendDataManager
 import io.evilgeniuses.energy_optimization.repositories.EnergyDataPointRepository;
 import io.evilgeniuses.energy_optimization.repositories.VariableCostRepository;
 import io.evilgeniuses.energy_optimization.services.VariablePriceFinder;
+import io.evilgeniuses.energy_optimization.storage.FileSystemStorageService;
 import io.evilgeniuses.energy_optimization.storage.StorageService;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FileParser_Upload {
@@ -25,16 +25,18 @@ public class FileParser_Upload {
     private final VariablePriceFinder priceFinder;
     private final StorageService storageService;
     private final FrontendDataManager frontendDataManager;
+    private final FileSystemStorageService fileSystemStorageService;
 
     public FileParser_Upload(EnergyDataPointRepository repository,
                              VariableCostRepository costRepository,
                              VariablePriceFinder priceFinder,
-                             StorageService storageService, FrontendDataManager frontendDataManager) {
+                             StorageService storageService, FrontendDataManager frontendDataManager, FileSystemStorageService fileSystemStorageService) {
         this.repository = repository;
         this.costRepository = costRepository;
         this.priceFinder = priceFinder;
         this.storageService = storageService;
         this.frontendDataManager = frontendDataManager;
+        this.fileSystemStorageService = fileSystemStorageService;
     }
 
     public void parseAndSave(String path) {
@@ -57,11 +59,16 @@ public class FileParser_Upload {
                 .build()
                 .parse();
 
-        var filenames = storageService.loadAll()
-                .map(onePath -> onePath.getFileName().toString())
+
+        var uploadData = fileSystemStorageService.getUploadDataList()
+                .stream()
+                .sorted(Comparator.comparing(UploadData::getTimestamp))
                 .toList();
-        output.addAll(createEDPs(dataCsvFile1, filenames.get(filenames.size() -1)));
-        frontendDataManager.addToSourceKeys(filenames.get(filenames.size() -1));
+
+        System.out.println(uploadData);
+
+        output.addAll(createEDPs(dataCsvFile1, uploadData.get(uploadData.size() - 1).getFileName()));
+        frontendDataManager.addToSourceKeys(uploadData.get(uploadData.size() - 1).getFileName());
         repository.saveAll(output);
 
 
