@@ -72,7 +72,7 @@
         function drawColumnChart() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Full hours');
-            data.addColumn('number', 'Billed Amount');
+            data.addColumn('number', 'Variable Price');
             Object.keys(real_data).forEach(function(key) {
                 data.addRow([ key, real_data[key] ]);
             });
@@ -81,7 +81,7 @@
             title : 'Full hours',
                 },
             vAxis : {
-            title : 'Billed Amount'
+            title : 'Variable Price'
                 }
         };
 

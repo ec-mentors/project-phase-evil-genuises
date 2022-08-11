@@ -57,7 +57,7 @@ public class UIController {
         Map<Integer, Double> graphData = new TreeMap<>();
         if (!dataList.isEmpty()) {
             for (DiagramData data : dataList) {
-                graphData.put(data.getHour(), data.getPrice() * data.getKwh());
+                graphData.put(data.getHour(), data.getPrice());
             }
             model.addAttribute("chartData", graphData);
         }
