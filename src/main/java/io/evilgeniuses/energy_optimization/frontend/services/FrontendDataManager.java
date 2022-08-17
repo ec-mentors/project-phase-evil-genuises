@@ -8,6 +8,8 @@ import io.evilgeniuses.energy_optimization.frontend.dataclasses.ForecastDataPoin
 import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPoint;
 import io.evilgeniuses.energy_optimization.frontend.dataclasses.MonthDataPointAsString;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -115,6 +117,7 @@ public class FrontendDataManager {
     public List<ForecastDataPoint> getForecast(String source) {
         var futureData = forecastManager.getFutureData(source);
         List<ForecastDataPoint> output = new ArrayList<>();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd. MMMM yyyy HH:mm");
         double totalUsage = 0;
         double totalBillingAmount = 0;
         for (EnergyDataPoint point : futureData) {
@@ -131,7 +134,7 @@ public class FrontendDataManager {
 
             output.add(
                     new ForecastDataPoint(
-                            String.valueOf(point.getEndTimeStamp()),
+                            fmt.print(point.getEndTimeStamp()),
                             String.valueOf(currentConsumption).substring(0, 5) + " kWh",
                             String.valueOf(currentPrice) + " €",
                             String.valueOf(currentPrice * currentConsumption).substring(0, 4)
