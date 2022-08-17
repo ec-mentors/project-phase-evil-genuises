@@ -70,7 +70,7 @@ public class FileUploadController {
 
         upload.parseAndSave("upload-dir/" + uploadData.get(uploadData.size() -1).getFileName());
 
-        return "redirect:/";
+        return "uploadForm";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
