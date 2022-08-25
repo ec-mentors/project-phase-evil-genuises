@@ -135,7 +135,8 @@ public class FrontendDataManager {
             output.add(
                     new ForecastDataPoint(
                             fmt.print(point.getEndTimeStamp()),
-                            String.valueOf(currentConsumption).substring(0, 5) + " kWh",
+                            String.valueOf(currentConsumption).substring(0, 4) + " kWh",
+                            //TODO: same as below, make substring length 5 again
                             String.valueOf(currentPrice) + " €",
                             String.valueOf(currentPrice * currentConsumption).substring(0, 4)
                             + " €"));
@@ -156,6 +157,8 @@ public class FrontendDataManager {
 
         output.add(new ForecastDataPoint(fullDayOutputString,
                 String.valueOf(totalUsage).substring(0,5) + " kWh",
+                //TODO: var result = s.Length < n ? s : s.Substring(0, n);
+                //Wanted substring length: 5, current for portability: 4
                 "",
                 String.valueOf(totalBillingAmount).substring(0, 4) + " €"));
 
